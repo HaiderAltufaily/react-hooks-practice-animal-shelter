@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Filters() {
+function Filters({onChangeType,onFindPetsClick}) {
+  const [selectValue,setSelectValue]= useState("all")
+  function handleSelect(e){
+    setSelectValue(e.target.value)
+    onChangeType(e.target.value)
+  }
+  function findPets(){
+    onFindPetsClick()
+  }
   return (
     <div className="ui form">
       <h3>Animal type</h3>
       <div className="field">
-        <select name="type" id="type" aria-label="type">
+        <select value= {selectValue} onChange= {handleSelect} name="type" id="type" aria-label="type">
           <option value="all">All</option>
           <option value="cat">Cats</option>
           <option value="dog">Dogs</option>
@@ -14,7 +22,7 @@ function Filters() {
       </div>
 
       <div className="field">
-        <button className="ui secondary button">Find pets</button>
+        <button onClick={findPets} className="ui secondary button">Find pets</button>
       </div>
     </div>
   );
